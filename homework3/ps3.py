@@ -42,6 +42,7 @@ SCRABBLE_LETTER_VALUES = {
     "x": 8,
     "y": 4,
     "z": 10,
+    "*":0
 }
 
 # -----------------------------------
@@ -119,8 +120,25 @@ def get_word_score(word, n):
     n: int >= 0
     returns: int >= 0
     """
+    if len(word) < 1:
+        return 0
+    
+    score = 0
+    word = word.lower()
+    
+    # 1st component 
+    for letter in word:
+        score += SCRABBLE_LETTER_VALUES[letter]
+    
+    #2nd component 
+    value = 7 * len(word) - 3 * (n - len(word))
 
-    pass  # TO DO... Remove this line when you implement this function
+    if value > 1:
+        score *= value
+    else:
+        score *= 1
+    
+    return score 
 
 
 #
@@ -174,6 +192,7 @@ def deal_hand(n):
         x = random.choice(CONSONANTS)
         hand[x] = hand.get(x, 0) + 1
 
+    hand['*'] = 1
     return hand
 
 
@@ -199,7 +218,18 @@ def update_hand(hand, word):
     returns: dictionary (string -> int)
     """
 
-    pass  # TO DO... Remove this line when you implement this function
+    inhand = hand.copy()
+    inword = [letter.lower() for letter in word]
+
+    for letter in inword :
+        if letter in inhand:
+            inhand[letter] -= 1
+
+    for letter in inhand:
+        if inhand[letter] < 0:
+            inhand[letter] = 0
+
+    return inhand 
 
 
 #
@@ -217,7 +247,35 @@ def is_valid_word(word, hand, word_list):
     returns: boolean
     """
 
-    pass  # TO DO... Remove this line when you implement this function
+    inword = word.lower()
+    
+    if '*' in inword:
+        index = inword.find('*')
+        match_found = False
+        for v in VOWELS:
+            candidate_word = inword[:index] + v + inword[index+1:]
+            if candidate_word in word_list:
+                match_found = True
+                break
+        if not match_found:
+            return False
+    else:
+        if inword not in word_list:
+            return False
+
+    temp_hand = hand.copy()
+    for letter in inword:
+        if temp_hand.get(letter, 0) > 0:
+            temp_hand[letter] -= 1
+        else:
+            return False
+            
+    return True
+
+
+        
+
+    
 
 
 #
