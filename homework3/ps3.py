@@ -293,6 +293,7 @@ def calculate_handlen(hand):
         result += hand[letter]
     return result 
 
+
 def play_hand(hand, word_list):
     """
     Allows the user to play the given hand, as follows:
