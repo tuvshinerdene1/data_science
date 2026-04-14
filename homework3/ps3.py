@@ -272,12 +272,6 @@ def is_valid_word(word, hand, word_list):
             
     return True
 
-
-        
-
-    
-
-
 #
 # Problem #5: Playing a hand
 #
@@ -317,7 +311,7 @@ def play_hand(hand, word_list):
     * The hand finishes when there are no more unused letters.
       The user can also finish playing the hand by inputing two
       exclamation points (the string '!!') instead of a word.
-
+4
       hand: dictionary (string -> int)
       word_list: list of lowercase strings
       returns: the total score for the hand
