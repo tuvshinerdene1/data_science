@@ -1,0 +1,117 @@
+lab2_1
+--------------------------------------------------------
+def calculate_average(scores):
+    sum = 0
+    for x in scores:
+        sum += x
+    average = sum / len(scores)
+    if average >= 90 :
+        grade = 'A'
+    elif 80 <= average and average < 90 :
+        grade = 'B'
+    elif 70 <= average and average <80:
+        grade = 'C'
+    elif 60 <= average and average < 70:
+        grade = 'D'
+    else:
+        grade = 'F'
+
+    print(f"average = {average}")
+    print(f"letter grade : {grade}")
+
+
+def main():
+    scores = [85,92,78,90,88]
+    calculate_average(scores)
+
+if __name__ == "__main__":
+    main()
+
+
+lab2_2
+--------------------------------------------------------
+
+students = {
+    "S001": ("Бат", 20, "Компьютерын ухаан"),
+    "S002": ("Болд", 21, "Программ хангамж")
+}
+def add_student(student_id, name, age, major):
+    students[student_id] = (name, age, major)
+    print("added successfully.")
+    print(students[student_id])
+
+
+def find_student_by_id(student_id):
+    # print(students.get(student_id, "Student not found"))
+    print(f"searching for student with id {student_id}")
+    for student in students:
+        if student == student_id:
+            print(students[student_id])
+            return
+    print("Student not found")
+    
+
+def list_students_by_major(major):
+    print(f"listing all students of {major} major")
+    # Тодорхой хөтөлбөрийн бүх оюутнуудыг жагсаах
+    for student in students:
+        if students[student][2] == major:
+            print(students[student])
+
+def count_students():
+    # Нийт оюутны тоог тоолох
+    print("counting all students...")
+    print(f"there are  {len(students)} students")
+def main():
+    add_student("S003", "Уянга", 22, "Компьютерын ухаан")
+    find_student_by_id("S002") # Гаралт: ("Болд", 21, "Программ хангамж")
+    list_students_by_major("Компьютерын ухаан") # Гаралт: [("Бат", 20, "Компьютерын ухаан), ("Уянга", 22, "Компьютерын ухаан")]
+    count_students() # Гаралт: 3
+
+if __name__ == "__main__":
+    main()
+
+lab2_3
+--------------------------------------------------------
+
+
+def wordCounter(sentence):
+    wordcount = {}
+    for word in sentence.split():
+        if word not in wordcount:
+            wordcount[word] = 1
+        else:
+            wordcount[word] += 1
+    
+    for word in wordcount:
+        if wordcount[word] > 1:
+            print(f"{word} : {wordcount[word]}")
+
+
+
+
+def main():
+    wordCounter("the cat and the dog and the bird")
+
+if __name__ == "__main__":
+    main()
+
+lab2_4
+--------------------------------------------------------
+
+
+def monitorTemp(temps):
+    ltemps = temps[:]
+    print(f"max temp = {max(ltemps)}")
+    print(f"min temp = {min(ltemps)}")
+    print(f"avg temp = {sum(ltemps)/len(ltemps):.1f}")
+    print(f"temps higher than avg temp = {len([x for x in ltemps if x > sum(ltemps)/len(ltemps)])}")
+
+
+
+def main():
+    temps = [72, 68, 75, 70, 73, 69, 71]
+    monitorTemp(temps)
+
+if __name__ == "__main__":
+    main()
